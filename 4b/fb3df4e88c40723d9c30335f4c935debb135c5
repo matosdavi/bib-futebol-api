@@ -1,0 +1,68 @@
+src/main/java/com/mercadolivre/bootcamp/bib/enums/StateEnum.java
+  h_83e4234dee3f6e 1-3,7
+  s_b91a0e35d702e0::t_c83e7b9034bef2 4-6
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Stadium.java
+  s_efe1555b2ec17d::t_68ce1cc9b94108 15
+  h_83e4234dee3f6e 4-6,8,17-19,23-24,26-32,34-35
+src/main/java/com/mercadolivre/bootcamp/bib/service/MatchService.java
+  h_83e4234dee3f6e 17,20,27,33,35-40,43,52-64
+  s_efe1555b2ec17d::t_88e5193ae167a2 42
+  s_efe1555b2ec17d::t_d6227a52f41906 51
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/response/RetrospectResponseDTO.java
+  h_83e4234dee3f6e 1-15
+src/main/java/com/mercadolivre/bootcamp/bib/repository/StadiumRepository.java
+  h_83e4234dee3f6e 4,13,15,17-18
+  s_efe1555b2ec17d::t_32fa337279022b 16
+  s_efe1555b2ec17d::t_f19136be1b7a80 14
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Match.java
+  s_8730d7c9aed71f::t_be7680c0500b13 46
+  s_8730d7c9aed71f::t_20b01b7637aec9 10
+  h_83e4234dee3f6e 4-5,7,12-13,17,21,26-28,30-32,34-36,39,41,45
+  s_8730d7c9aed71f::t_d09a50dc6645bb 23
+  s_8730d7c9aed71f::t_44ec61a119c50a 38
+src/main/java/com/mercadolivre/bootcamp/bib/repository/ClubRepository.java
+  h_83e4234dee3f6e 4,8-11,13-19
+src/main/java/com/mercadolivre/bootcamp/bib/repository/MatchRepository.java
+  h_83e4234dee3f6e 13-17,19-21
+  s_efe1555b2ec17d::t_38eb577733241d 18
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Club.java
+  s_8730d7c9aed71f::t_9c4f46e230cf6c 26
+  h_83e4234dee3f6e 11,16,25,27,34,36-37,39,41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4bfb3df4e88c40723d9c30335f4c935debb135c5",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  },
+  "sessions": {
+    "s_8730d7c9aed71f": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1779914138973",
+        "model": "unknown"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_b91a0e35d702e0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "36f21fac-c820-4dc1-abf2-ca6b0350d5b7",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_efe1555b2ec17d": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1779985835495",
+        "model": "unknown"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
