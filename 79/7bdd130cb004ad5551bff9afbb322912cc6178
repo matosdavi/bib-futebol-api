@@ -1,0 +1,45 @@
+src/main/java/com/mercadolivre/bootcamp/bib/repository/MatchRepository.java
+  h_83e4234dee3f6e 21
+src/main/java/com/mercadolivre/bootcamp/bib/service/ClubService.java
+  s_5e420336dad891::t_84c2282e57808e 26
+  s_5e420336dad891::t_16f45f06d104d9 44
+  s_5e420336dad891::t_d1c4db0a40f0b2 32
+  h_83e4234dee3f6e 41-42,46
+  s_5e420336dad891::t_f2712d483348b5 45
+  s_5e420336dad891::t_9ca40705d6bffa 24
+  s_5e420336dad891::t_5fee71aa11cc1e 38
+src/main/java/com/mercadolivre/bootcamp/bib/service/MatchService.java
+  s_5e420336dad891::t_a593dae505111d 30
+  s_5e420336dad891::t_9dabddaf9a4c99 46
+  s_5e420336dad891::t_a0209bfdfc1029 29
+  s_5e420336dad891::t_523ae9c7e5513c 27
+  s_5e420336dad891::t_19bdf7c1ae1596 34
+  s_5e420336dad891::t_7f209c863ba41a 38
+  h_83e4234dee3f6e 22,25,31,35,39,42,44-45
+src/main/java/com/mercadolivre/bootcamp/bib/repository/StadiumRepository.java
+  h_83e4234dee3f6e 20-21
+src/main/java/com/mercadolivre/bootcamp/bib/service/StadiumService.java
+  h_83e4234dee3f6e 9-11,15,17,20-27,29,31-50
+  s_5e420336dad891::t_b0b8b1897aed7f 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "797bdd130cb004ad5551bff9afbb322912cc6178",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  },
+  "sessions": {
+    "s_5e420336dad891": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1780323457299",
+        "model": "unknown"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
