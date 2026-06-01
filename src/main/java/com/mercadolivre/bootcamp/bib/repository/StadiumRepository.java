@@ -12,11 +12,13 @@ import java.util.UUID;
 @Repository
 public interface StadiumRepository extends JpaRepository<Stadium, UUID> {
 
+    List<Stadium> findByActive(boolean active);
+
     List<Stadium> findByNameIgnoreCase(String name);
 
     List<Stadium> findByCityIgnoreCase(String city);
 
     List<Stadium> findByState(StateEnum state);
 
-    Optional<Stadium> findByNameAndCityAndStateIgnoreCase(String name, String city, StateEnum state);
+    Optional<Stadium> findByNameIgnoreCaseAndCityIgnoreCaseAndState(String name, String city, StateEnum state);
 }

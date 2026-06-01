@@ -3,10 +3,11 @@ package com.mercadolivre.bootcamp.bib.service;
 import com.mercadolivre.bootcamp.bib.entity.Stadium;
 import com.mercadolivre.bootcamp.bib.repository.StadiumRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,7 +19,7 @@ public class StadiumService {
     @Transactional
     public Stadium createStadium(Stadium stadium) {
 
-        stadiumRepository.findByNameAndCityAndStateIgnoreCase(
+        stadiumRepository.findByNameIgnoreCaseAndCityIgnoreCaseAndState(
                 stadium.getName(),
                 stadium.getCity(),
                 stadium.getState()
@@ -27,19 +28,20 @@ public class StadiumService {
                     stadium.getCity() + ", " + stadium.getState());
         });
 
+        stadium.setActive(true);
         return stadiumRepository.save(stadium);
     }
 
     @Transactional(readOnly = true)
-    public List<Stadium> findAll() {
-
-        return stadiumRepository.findAll();
+    public Page<Stadium> findAll(Pageable pageable) {
+        return stadiumRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
     public Stadium findById(UUID id) {
 
         return stadiumRepository.findById(id)
+                .filter(Stadium::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("Stadium not found with ID: " + id));
     }
 
@@ -47,6 +49,7 @@ public class StadiumService {
     public void deleteStadium(UUID id) {
 
         Stadium stadium = findById(id);
-        stadiumRepository.delete(stadium);
+        stadium.setActive(false);
+        stadiumRepository.save(stadium);
     }
 }

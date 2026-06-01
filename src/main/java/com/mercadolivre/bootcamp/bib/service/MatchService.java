@@ -1,11 +1,16 @@
 package com.mercadolivre.bootcamp.bib.service;
 
+import com.mercadolivre.bootcamp.bib.controller.dto.response.RetrospectConfrontResponseDTO;
 import com.mercadolivre.bootcamp.bib.controller.dto.response.RetrospectResponseDTO;
 import com.mercadolivre.bootcamp.bib.entity.Club;
 import com.mercadolivre.bootcamp.bib.entity.Match;
 import com.mercadolivre.bootcamp.bib.repository.ClubRepository;
 import com.mercadolivre.bootcamp.bib.repository.MatchRepository;
+import com.mercadolivre.bootcamp.bib.repository.MatchSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +28,17 @@ public class MatchService {
     @Transactional
     public Match createMatch(Match match) {
 
-        clubRepository.findById(match.getHomeClub().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Home club not found with ID: " + match.getHomeClub().getId()));
-        clubRepository.findById(match.getAwayClub().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Away club not found with ID: " + match.getAwayClub().getId()));
-        stadiumService.findById(match.getStadium().getId());
-
         if (match.getHomeClub().getId().equals(match.getAwayClub().getId())) {
             throw new IllegalArgumentException("Home club and away club cannot be the same.");
         }
+
+        clubRepository.findById(match.getHomeClub().getId())
+                .filter(Club::isActive)
+                .orElseThrow(() -> new IllegalArgumentException("Home club not found with ID: " + match.getHomeClub().getId()));
+        clubRepository.findById(match.getAwayClub().getId())
+                .filter(Club::isActive)
+                .orElseThrow(() -> new IllegalArgumentException("Away club not found with ID: " + match.getAwayClub().getId()));
+        stadiumService.findById(match.getStadium().getId());
 
         if (match.getHomeClubGoals() < 0 || match.getAwayClubGoals() < 0) {
             throw new IllegalArgumentException("Goals cannot be negative.");
@@ -41,19 +48,29 @@ public class MatchService {
     }
 
     @Transactional(readOnly = true)
+    public Page<Match> findAll(UUID clubId, UUID stadiumId, Pageable pageable) {
+        Specification<Match> spec = Specification
+                .where(MatchSpecification.hasClub(clubId))
+                .and(MatchSpecification.hasStadium(stadiumId));
+        return matchRepository.findAll(spec, pageable);
+    }
+
+    @Transactional(readOnly = true)
     public List<Match> blowouts() {
         return matchRepository.findBlowouts();
     }
 
+    @Transactional(readOnly = true)
     public RetrospectResponseDTO generalRetrospectCalculate(UUID clubId) {
 
         Club club = clubRepository.findById(clubId)
+                .filter(Club::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("Club not found with ID: " + clubId));
 
         List<Match> matches = matchRepository.findByHomeClubIdOrAwayClubId(clubId, clubId);
 
         long victories = 0;
-        long loses = 0;
+        long losses = 0;
         long draws = 0;
         long goalsScored = 0;
         long goalsConceded = 0;
@@ -71,7 +88,7 @@ public class MatchService {
             if (homeGoals > awayGoals) {
                 victories++;
             } else if (homeGoals < awayGoals) {
-                loses++;
+                losses++;
             } else {
                 draws++;
             }
@@ -84,10 +101,70 @@ public class MatchService {
                 club.getName(),
                 victories,
                 draws,
-                loses,
+                losses,
                 goalsScored,
                 goalsConceded,
                 goalDifference
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public RetrospectConfrontResponseDTO confrontRetrospectCalculate(UUID clubId, UUID adversaryClubId) {
+
+        if (clubId.equals(adversaryClubId)) {
+            throw new IllegalArgumentException("Club ID and adversary club ID cannot be the same.");
+        }
+
+        Club club = clubRepository.findById(clubId)
+                .filter(Club::isActive)
+                .orElseThrow(() -> new IllegalArgumentException("Club not found with ID: " + clubId));
+
+        Club adversaryClub = clubRepository.findById(adversaryClubId)
+                .filter(Club::isActive)
+                .orElseThrow(() -> new IllegalArgumentException("Adversary club not found with ID: " + adversaryClubId));
+
+        List<Match> matches = matchRepository.findByBothClubs(clubId, adversaryClubId);
+
+        long victories = 0;
+        long losses = 0;
+        long draws = 0;
+        long goalsScored = 0;
+        long goalsConceded = 0;
+
+        for (Match match : matches) {
+
+            boolean isHomeClub = match.getHomeClub().getId().equals(clubId);
+
+            int homeGoals = isHomeClub ? match.getHomeClubGoals() : match.getAwayClubGoals();
+            int awayGoals = isHomeClub ? match.getAwayClubGoals() : match.getHomeClubGoals();
+
+            goalsScored += homeGoals;
+            goalsConceded += awayGoals;
+
+            if (homeGoals > awayGoals) {
+                victories++;
+            } else if (homeGoals < awayGoals) {
+                losses++;
+            } else {
+                draws++;
+            }
+        }
+
+        long goalDifference = goalsScored - goalsConceded;
+        long totalMatches = matches.size();
+
+        return new RetrospectConfrontResponseDTO(
+                clubId,
+                club.getName(),
+                adversaryClubId,
+                adversaryClub.getName(),
+                victories,
+                draws,
+                losses,
+                goalsScored,
+                goalsConceded,
+                goalDifference,
+                totalMatches
         );
     }
 }

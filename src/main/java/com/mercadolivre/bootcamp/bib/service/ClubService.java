@@ -1,12 +1,16 @@
 package com.mercadolivre.bootcamp.bib.service;
 
 import com.mercadolivre.bootcamp.bib.entity.Club;
+import com.mercadolivre.bootcamp.bib.enums.StateEnum;
 import com.mercadolivre.bootcamp.bib.repository.ClubRepository;
+import com.mercadolivre.bootcamp.bib.repository.ClubSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,8 +32,12 @@ public class ClubService {
     }
 
     @Transactional(readOnly = true)
-    public List<Club> findAllActive() {
-        return clubRepository.findByActive(true);
+    public Page<Club> findAll(String name, StateEnum state, Boolean active, Pageable pageable) {
+        Specification<Club> spec = Specification
+                .where(ClubSpecification.hasName(name))
+                .and(ClubSpecification.hasState(state))
+                .and(ClubSpecification.isActive(active));
+        return clubRepository.findAll(spec, pageable);
     }
 
     @Transactional(readOnly = true)

@@ -33,4 +33,8 @@ public class Stadium {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 2)
     private StateEnum state;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private boolean active = false;
 }
