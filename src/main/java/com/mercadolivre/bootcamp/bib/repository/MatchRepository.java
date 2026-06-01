@@ -18,5 +18,5 @@ public interface MatchRepository extends JpaRepository<Match, UUID> {
     List<Match> findByHomeClubIdOrAwayClubId(UUID homeClubId, UUID awayClubId);
 
     @Query("SELECT m FROM Match m WHERE ABS(m.homeClubGoals - m.awayClubGoals) >= 3")
-    List<Match> findFrost();
+    List<Match> findBlowouts();
 }

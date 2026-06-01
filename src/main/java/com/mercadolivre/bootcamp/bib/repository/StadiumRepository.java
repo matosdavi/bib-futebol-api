@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -16,4 +17,6 @@ public interface StadiumRepository extends JpaRepository<Stadium, UUID> {
     List<Stadium> findByCityIgnoreCase(String city);
 
     List<Stadium> findByState(StateEnum state);
+
+    Optional<Stadium> findByNameAndCityAndStateIgnoreCase(String name, String city, StateEnum state);
 }

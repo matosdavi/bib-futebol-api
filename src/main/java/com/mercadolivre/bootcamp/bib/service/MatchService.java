@@ -7,6 +7,7 @@ import com.mercadolivre.bootcamp.bib.repository.ClubRepository;
 import com.mercadolivre.bootcamp.bib.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +18,32 @@ public class MatchService {
 
     private final MatchRepository matchRepository;
     private final ClubRepository clubRepository;
+    private final StadiumService stadiumService;
+
+    @Transactional
+    public Match createMatch(Match match) {
+
+        clubRepository.findById(match.getHomeClub().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Home club not found with ID: " + match.getHomeClub().getId()));
+        clubRepository.findById(match.getAwayClub().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Away club not found with ID: " + match.getAwayClub().getId()));
+        stadiumService.findById(match.getStadium().getId());
+
+        if (match.getHomeClub().getId().equals(match.getAwayClub().getId())) {
+            throw new IllegalArgumentException("Home club and away club cannot be the same.");
+        }
+
+        if (match.getHomeClubGoals() < 0 || match.getAwayClubGoals() < 0) {
+            throw new IllegalArgumentException("Goals cannot be negative.");
+        }
+
+        return matchRepository.save(match);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Match> blowouts() {
+        return matchRepository.findBlowouts();
+    }
 
     public RetrospectResponseDTO generalRetrospectCalculate(UUID clubId) {
 
