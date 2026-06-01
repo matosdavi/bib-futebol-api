@@ -1,0 +1,67 @@
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Stadium.java
+  h_83e4234dee3f6e 36-39
+src/main/java/com/mercadolivre/bootcamp/bib/repository/ClubSpecification.java
+  s_d0dceb26ed5bc7::t_1c694cb7589072 1-23
+src/main/java/com/mercadolivre/bootcamp/bib/repository/MatchSpecification.java
+  s_d0dceb26ed5bc7::t_e6bdb1433ec4e9 1-22
+src/main/java/com/mercadolivre/bootcamp/bib/repository/MatchRepository.java
+  s_d0dceb26ed5bc7::t_d3c4671ec2bf2e 5,14
+  h_83e4234dee3f6e 7,20-24
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/response/RetrospectConfrontResponseDTO.java
+  h_83e4234dee3f6e 1-18
+src/main/java/com/mercadolivre/bootcamp/bib/service/ClubService.java
+  s_d0dceb26ed5bc7::t_696aa093baa439 35-40
+  s_d0dceb26ed5bc7::t_31a65638769d04 4,6,8-10
+src/main/java/com/mercadolivre/bootcamp/bib/repository/ClubRepository.java
+  s_d0dceb26ed5bc7::t_d67c6d53256157 5,12
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Club.java
+  h_83e4234dee3f6e 16
+src/main/java/com/mercadolivre/bootcamp/bib/service/StadiumService.java
+  s_d0dceb26ed5bc7::t_1b0ec81f78bc24 6-7
+  s_d0dceb26ed5bc7::t_c20d58c35dd4f5 36-37
+  s_5e420336dad891::t_1e5e3671f0347e 44
+src/main/java/com/mercadolivre/bootcamp/bib/service/MatchService.java
+  s_5e420336dad891::t_0a7d23bbc41ea5 116
+  s_5e420336dad891::t_2ae372f75bc550 123
+  s_d0dceb26ed5bc7::t_bc9daf6f8b12dc 9,11-13
+  s_d0dceb26ed5bc7::t_579e13796ac5ac 51-57
+  s_5e420336dad891::t_ac5d45ba19f435 36
+  s_5e420336dad891::t_9732781f828639 119
+  s_5e420336dad891::t_81baf13efac543 39
+  s_5e420336dad891::t_364dfb1fa057d7 67
+  h_83e4234dee3f6e 34,63,73,91,104,110,126,129,135-136,138-139,147,157,159,163
+src/main/java/com/mercadolivre/bootcamp/bib/repository/StadiumRepository.java
+  s_5e420336dad891::t_c8f7002db99486 15
+  h_83e4234dee3f6e 16
+pom.xml
+  h_83e4234dee3f6e 1-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "0339209e5dbf6cfe9a74c9d6146d4110c21120b0",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  },
+  "sessions": {
+    "s_5e420336dad891": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1780323457299",
+        "model": "unknown"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_d0dceb26ed5bc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6c08e5c4-d8c9-4e11-9fad-e3f95e853245",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
