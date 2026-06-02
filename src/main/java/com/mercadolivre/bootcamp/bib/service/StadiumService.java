@@ -1,10 +1,13 @@
 package com.mercadolivre.bootcamp.bib.service;
 
 import com.mercadolivre.bootcamp.bib.entity.Stadium;
+import com.mercadolivre.bootcamp.bib.enums.StateEnum;
 import com.mercadolivre.bootcamp.bib.repository.StadiumRepository;
+import com.mercadolivre.bootcamp.bib.repository.StadiumSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +36,13 @@ public class StadiumService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Stadium> findAll(Pageable pageable) {
-        return stadiumRepository.findAll(pageable);
+    public Page<Stadium> findAll(String name, String city, StateEnum state, Boolean active, Pageable pageable) {
+        Specification<Stadium> spec = Specification
+                .where(StadiumSpecification.hasName(name))
+                .and(StadiumSpecification.hasCity(city))
+                .and(StadiumSpecification.hasState(state))
+                .and(StadiumSpecification.isActive(active));
+        return stadiumRepository.findAll(spec, pageable);
     }
 
     @Transactional(readOnly = true)

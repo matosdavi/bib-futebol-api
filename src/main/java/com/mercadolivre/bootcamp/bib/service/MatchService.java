@@ -28,17 +28,17 @@ public class MatchService {
     @Transactional
     public Match createMatch(Match match) {
 
-        if (match.getHomeClub().getId().equals(match.getAwayClub().getId())) {
+        if (match.getHomeClubId().getId().equals(match.getAwayClubId().getId())) {
             throw new IllegalArgumentException("Home club and away club cannot be the same.");
         }
 
-        clubRepository.findById(match.getHomeClub().getId())
+        clubRepository.findById(match.getHomeClubId().getId())
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Home club not found with ID: " + match.getHomeClub().getId()));
-        clubRepository.findById(match.getAwayClub().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Home club not found with ID: " + match.getHomeClubId().getId()));
+        clubRepository.findById(match.getAwayClubId().getId())
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Away club not found with ID: " + match.getAwayClub().getId()));
-        stadiumService.findById(match.getStadium().getId());
+                .orElseThrow(() -> new IllegalArgumentException("Away club not found with ID: " + match.getAwayClubId().getId()));
+        stadiumService.findById(match.getStadiumId().getId());
 
         if (match.getHomeClubGoals() < 0 || match.getAwayClubGoals() < 0) {
             throw new IllegalArgumentException("Goals cannot be negative.");
@@ -56,7 +56,13 @@ public class MatchService {
     }
 
     @Transactional(readOnly = true)
-    public List<Match> blowouts() {
+    public Match findById(UUID id) {
+        return matchRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Match not found with ID: " + id));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Match> findBlowouts() {
         return matchRepository.findBlowouts();
     }
 
@@ -77,7 +83,7 @@ public class MatchService {
 
         for (Match match : matches) {
 
-            boolean isHomeClub = match.getHomeClub().getId().equals(clubId);
+            boolean isHomeClub = match.getHomeClubId().getId().equals(clubId);
 
             int homeGoals = isHomeClub ? match.getHomeClubGoals() : match.getAwayClubGoals();
             int awayGoals = isHomeClub ? match.getAwayClubGoals() : match.getHomeClubGoals();
@@ -133,7 +139,7 @@ public class MatchService {
 
         for (Match match : matches) {
 
-            boolean isHomeClub = match.getHomeClub().getId().equals(clubId);
+            boolean isHomeClub = match.getHomeClubId().getId().equals(clubId);
 
             int homeGoals = isHomeClub ? match.getHomeClubGoals() : match.getAwayClubGoals();
             int awayGoals = isHomeClub ? match.getAwayClubGoals() : match.getHomeClubGoals();
@@ -166,5 +172,11 @@ public class MatchService {
                 goalDifference,
                 totalMatches
         );
+    }
+
+    @Transactional
+    public void deleteMatch(UUID id) {
+        Match match = findById(id);
+        matchRepository.delete(match);
     }
 }

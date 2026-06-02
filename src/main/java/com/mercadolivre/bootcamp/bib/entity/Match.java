@@ -25,18 +25,18 @@ public class Match {
 
     @ManyToOne
     @JoinColumn(name = "home_club_id", nullable = false)
-    private Club homeClub;
+    private Club homeClubId;
 
     @ManyToOne
     @JoinColumn(name = "away_club_id", nullable = false)
-    private Club awayClub;
+    private Club awayClubId;
 
     @ManyToOne
     @JoinColumn(name = "stadium_id", nullable = false)
-    private Stadium stadium;
+    private Stadium stadiumId;
 
     @Column(name = "match_date", nullable = false)
-    private LocalDateTime matchDate;
+    private LocalDateTime matchDateTime;
 
     @Min(0)
     @Column(name = "home_club_goals", nullable = false)

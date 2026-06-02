@@ -1,6 +1,8 @@
 package com.mercadolivre.bootcamp.bib.repository;
 
 import com.mercadolivre.bootcamp.bib.entity.Match;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -16,10 +18,10 @@ public interface MatchRepository extends JpaRepository<Match, UUID>, JpaSpecific
     List<Match> findByHomeClubIdOrAwayClubId(UUID homeClubId, UUID awayClubId);
 
     @Query("SELECT m FROM Match m WHERE ABS(m.homeClubGoals - m.awayClubGoals) >= 3")
-    List<Match> findBlowouts();
+    Page<Match> findBlowouts();
 
     @Query("SELECT m FROM Match m WHERE " +
-            "(m.homeClub.id = :clubId AND m.awayClub.id = :adversaryId) OR " +
-            "(m.awayClub.id = :clubId AND m.homeClub.id = :adversaryId)")
+            "(m.homeClubId.id = :clubId AND m.awayClubId.id = :adversaryId) OR " +
+            "(m.awayClubId.id = :clubId AND m.homeClubId.id = :adversaryId)")
     List<Match> findByBothClubs(@Param("clubId") UUID clubId, @Param("adversaryId") UUID adversaryId);
 }
