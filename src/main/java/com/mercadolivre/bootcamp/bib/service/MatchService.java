@@ -4,6 +4,8 @@ import com.mercadolivre.bootcamp.bib.controller.dto.response.RetrospectConfrontR
 import com.mercadolivre.bootcamp.bib.controller.dto.response.RetrospectResponseDTO;
 import com.mercadolivre.bootcamp.bib.entity.Club;
 import com.mercadolivre.bootcamp.bib.entity.Match;
+import com.mercadolivre.bootcamp.bib.exception.BusinessRuleException;
+import com.mercadolivre.bootcamp.bib.exception.ResourceNotFoundException;
 import com.mercadolivre.bootcamp.bib.repository.ClubRepository;
 import com.mercadolivre.bootcamp.bib.repository.MatchRepository;
 import com.mercadolivre.bootcamp.bib.repository.MatchSpecification;
@@ -29,19 +31,19 @@ public class MatchService {
     public Match createMatch(Match match) {
 
         if (match.getHomeClubId().getId().equals(match.getAwayClubId().getId())) {
-            throw new IllegalArgumentException("Home club and away club cannot be the same.");
+            throw new BusinessRuleException("Home club and away club cannot be the same.");
         }
 
         clubRepository.findById(match.getHomeClubId().getId())
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Home club not found with ID: " + match.getHomeClubId().getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Home club not found with ID: " + match.getHomeClubId().getId()));
         clubRepository.findById(match.getAwayClubId().getId())
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Away club not found with ID: " + match.getAwayClubId().getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Away club not found with ID: " + match.getAwayClubId().getId()));
         stadiumService.findById(match.getStadiumId().getId());
 
         if (match.getHomeClubGoals() < 0 || match.getAwayClubGoals() < 0) {
-            throw new IllegalArgumentException("Goals cannot be negative.");
+            throw new BusinessRuleException("Goals cannot be negative.");
         }
 
         return matchRepository.save(match);
@@ -58,7 +60,7 @@ public class MatchService {
     @Transactional(readOnly = true)
     public Match findById(UUID id) {
         return matchRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Match not found with ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Match not found with ID: " + id));
     }
 
     @Transactional(readOnly = true)
@@ -71,7 +73,7 @@ public class MatchService {
 
         Club club = clubRepository.findById(clubId)
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Club not found with ID: " + clubId));
+                .orElseThrow(() -> new ResourceNotFoundException("Club not found with ID: " + clubId));
 
         List<Match> matches = matchRepository.findByHomeClubIdOrAwayClubId(clubId, clubId);
 
@@ -118,16 +120,16 @@ public class MatchService {
     public RetrospectConfrontResponseDTO confrontRetrospectCalculate(UUID clubId, UUID adversaryClubId) {
 
         if (clubId.equals(adversaryClubId)) {
-            throw new IllegalArgumentException("Club ID and adversary club ID cannot be the same.");
+            throw new BusinessRuleException("Club ID and adversary club ID cannot be the same.");
         }
 
         Club club = clubRepository.findById(clubId)
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Club not found with ID: " + clubId));
+                .orElseThrow(() -> new ResourceNotFoundException("Club not found with ID: " + clubId));
 
         Club adversaryClub = clubRepository.findById(adversaryClubId)
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Adversary club not found with ID: " + adversaryClubId));
+                .orElseThrow(() -> new ResourceNotFoundException("Adversary club not found with ID: " + adversaryClubId));
 
         List<Match> matches = matchRepository.findByBothClubs(clubId, adversaryClubId);
 

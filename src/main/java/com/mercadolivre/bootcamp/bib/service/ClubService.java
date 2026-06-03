@@ -2,6 +2,8 @@ package com.mercadolivre.bootcamp.bib.service;
 
 import com.mercadolivre.bootcamp.bib.entity.Club;
 import com.mercadolivre.bootcamp.bib.enums.StateEnum;
+import com.mercadolivre.bootcamp.bib.exception.ConflictException;
+import com.mercadolivre.bootcamp.bib.exception.ResourceNotFoundException;
 import com.mercadolivre.bootcamp.bib.repository.ClubRepository;
 import com.mercadolivre.bootcamp.bib.repository.ClubSpecification;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,7 @@ public class ClubService {
 
         clubRepository.findByNameIgnoreCase(club.getName())
                 .ifPresent(existingClub -> {
-                    throw new IllegalArgumentException("Club with name '" + club.getName() + "' already exists.");
+                    throw new ConflictException("Club with name '" + club.getName() + "' already exists.");
                 });
 
         club.setActive(true);
@@ -44,7 +46,7 @@ public class ClubService {
     public Club findById(UUID id) {
         return clubRepository.findById(id)
                 .filter(Club::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Club not found or inactive with ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Club not found or inactive with ID: " + id));
     }
 
     @Transactional

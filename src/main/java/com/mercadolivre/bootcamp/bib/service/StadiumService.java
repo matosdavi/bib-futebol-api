@@ -2,6 +2,8 @@ package com.mercadolivre.bootcamp.bib.service;
 
 import com.mercadolivre.bootcamp.bib.entity.Stadium;
 import com.mercadolivre.bootcamp.bib.enums.StateEnum;
+import com.mercadolivre.bootcamp.bib.exception.ConflictException;
+import com.mercadolivre.bootcamp.bib.exception.ResourceNotFoundException;
 import com.mercadolivre.bootcamp.bib.repository.StadiumRepository;
 import com.mercadolivre.bootcamp.bib.repository.StadiumSpecification;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,7 @@ public class StadiumService {
                 stadium.getCity(),
                 stadium.getState()
         ).ifPresent(existingStadium -> {
-            throw new IllegalArgumentException("Stadium with name '" + stadium.getName() + "' already exists in " +
+            throw new ConflictException("Stadium with name '" + stadium.getName() + "' already exists in " +
                     stadium.getCity() + ", " + stadium.getState());
         });
 
@@ -50,7 +52,7 @@ public class StadiumService {
 
         return stadiumRepository.findById(id)
                 .filter(Stadium::isActive)
-                .orElseThrow(() -> new IllegalArgumentException("Stadium not found with ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Stadium not found with ID: " + id));
     }
 
     @Transactional

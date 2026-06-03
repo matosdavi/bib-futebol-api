@@ -1,3 +1,6 @@
 spring:
   application:
     name: bib
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
