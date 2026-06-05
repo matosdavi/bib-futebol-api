@@ -1,0 +1,26 @@
+pom.xml
+  s_470dd9320838e7::t_d1945daa470e09 85
+  h_83e4234dee3f6e 13
+  s_470dd9320838e7::t_1616f3fbbb0259 83-84,86-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "694bc66132ed337d1822cba583fce08d15fe9567",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  },
+  "sessions": {
+    "s_470dd9320838e7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae281ed8-1e5e-4f48-8384-7fca19d0e4b9",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
