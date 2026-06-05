@@ -1,0 +1,98 @@
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Club.java
+  s_81052b4863e3df::t_e946e9fb8e580d 26
+src/main/java/com/mercadolivre/bootcamp/bib/repository/MatchRepository.java
+  h_83e4234dee3f6e 21
+src/test/java/com/mercadolivre/bootcamp/bib/controller/ClubControllerTest.java
+  s_bec65869a87909::t_82fc5542e84354 14-16,18,21,39,44,47,56-61
+  s_bec65869a87909::t_d19471104ce493 1-13,17,19-20,22-38,40-43,45-46,48-55,62-257,259-262
+  s_bec65869a87909::t_db5662c9c01502 258
+src/test/java/com/mercadolivre/bootcamp/bib/controller/MatchControllerTest.java
+  s_bec65869a87909::t_95c72635f430ff 1-11,15,17-18,20-36,38-41,43-52,59-169,171-199,202-235,238-240,243-266
+  s_bec65869a87909::t_563d55344fbc2b 12-14,16,19,37,42,53-58
+  s_bec65869a87909::t_2229150e587580 170
+  s_43f051ff8bc6d1::t_4af65a9b08e4ae 236-237
+  s_81052b4863e3df::t_9c150ce277e94f 200-201,241-242
+src/test/java/com/mercadolivre/bootcamp/bib/service/ClubServiceTest.java
+  s_a3a20fee511ea3::t_c51c4b0c52adbb 54-66
+  s_bec65869a87909::t_352b537c6143c4 1-13,19-20,22-53,67-128
+  s_a3a20fee511ea3::t_4bdf26e41fa6f1 14-18,21
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Stadium.java
+  h_83e4234dee3f6e 23-24
+src/main/java/com/mercadolivre/bootcamp/bib/entity/Match.java
+  h_83e4234dee3f6e 22-23,38
+pom.xml
+  h_83e4234dee3f6e 13,61-65
+src/main/resources/application.yaml
+  h_83e4234dee3f6e 4-24
+src/main/resources/data.sql
+  s_81052b4863e3df::t_f3ba4687646538 2-13,19,21,23,25,27,29,31,33,35,37
+  h_83e4234dee3f6e 16-18,20,22,24,26,28,30,32,34,36
+.claude/settings.local.json
+  s_bec65869a87909::t_a45077cbb2af95 1-4,10-12
+  s_43f051ff8bc6d1::t_9b7e40729bc4b4 8-9
+  s_bec65869a87909::t_62c05babf412ed 5-6
+  s_bec65869a87909::t_391061311f49c8 7
+src/test/java/com/mercadolivre/bootcamp/bib/service/MatchServiceTest.java
+  s_a3a20fee511ea3::t_434610f139afc8 181-213
+  s_bec65869a87909::t_d930da8031e02f 1-18,24-180,214-382
+  s_a3a20fee511ea3::t_7ac0d803bf3f23 19-23
+src/test/java/com/mercadolivre/bootcamp/bib/controller/StadiumControllerTest.java
+  s_bec65869a87909::t_7397fe9570663a 1-9,13,15-16,18-33,35-38,40-46,53-199
+  s_bec65869a87909::t_8babf2be99bfc5 10-12,14,17,34,39,47-52
+src/main/java/com/mercadolivre/bootcamp/bib/service/MatchService.java
+  h_83e4234dee3f6e 67-68
+src/main/java/com/mercadolivre/bootcamp/bib/controller/MatchController.java
+  s_81052b4863e3df::t_423ae1d914ef3f 46-47
+src/test/java/com/mercadolivre/bootcamp/bib/service/StadiumServiceTest.java
+  s_a3a20fee511ea3::t_181a1c94a0eed2 14-18,20
+  s_bec65869a87909::t_c4fc4a504b86e3 1-13,19,21-52,66-131
+  s_a3a20fee511ea3::t_c8b5a1e78907bc 53-65
+src/main/java/com/mercadolivre/bootcamp/bib/controller/GlobalExceptionHandler.java
+  s_43f051ff8bc6d1::t_d8321177be8560 69-76
+  s_43f051ff8bc6d1::t_699e61f6657673 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "63fea6862b15fae3a59481f2163c3925b61a74ba",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  },
+  "sessions": {
+    "s_43f051ff8bc6d1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b7c74f63-04fc-43ba-8661-b9d65bf37897",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_81052b4863e3df": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1780508972114",
+        "model": "unknown"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_a3a20fee511ea3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0a4caae8-cf05-4598-ac33-883b0b37bec6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_bec65869a87909": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71e96deb-b3dc-41f8-a3a7-76075baff9e5",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
