@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.mercadolivre.bootcamp</groupId>
 	<artifactId>bib</artifactId>
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 	<name>BiB</name>
 	<description>Basket is Better - A football match API for Neocamp Brasil</description>
 	<url/>
@@ -76,6 +76,34 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.14</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/entity/**</exclude>
+						<exclude>**/dto/**</exclude>
+						<exclude>**/enums/**</exclude>
+						<exclude>**/BibApplication.class</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
