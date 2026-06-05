@@ -11,6 +11,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -63,6 +64,14 @@ public class GlobalExceptionHandler {
             HttpServletRequest request) {
 
         return buildErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, "Business Rule Violation", List.of(ex.getMessage()), request);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleNoResourceFound(
+            NoResourceFoundException ex,
+            HttpServletRequest request) {
+
+        return buildErrorResponse(HttpStatus.NOT_FOUND, "Resource Not Found", List.of(ex.getMessage()), request);
     }
 
     @ExceptionHandler(Exception.class)

@@ -64,8 +64,8 @@ public class MatchService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Match> findBlowouts() {
-        return matchRepository.findBlowouts();
+    public Page<Match> findBlowouts(Pageable pageable) {
+        return matchRepository.findBlowouts(pageable);
     }
 
     @Transactional(readOnly = true)

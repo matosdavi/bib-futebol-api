@@ -19,8 +19,8 @@ public class Match {
 
     @Id
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "BINARY(16)")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
     private UUID id;
 
     @ManyToOne
@@ -35,7 +35,7 @@ public class Match {
     @JoinColumn(name = "stadium_id", nullable = false)
     private Stadium stadiumId;
 
-    @Column(name = "match_date", nullable = false)
+    @Column(name = "match_date_time", nullable = false)
     private LocalDateTime matchDateTime;
 
     @Min(0)

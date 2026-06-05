@@ -43,10 +43,8 @@ public class MatchController {
     }
 
     @GetMapping("/blowouts")
-    public ResponseEntity<List<MatchResponseDTO>> findBlowouts() {
-        return ResponseEntity.ok(matchService.findBlowouts().stream()
-                .map(MatchResponseDTO::from)
-                .toList());
+    public ResponseEntity<List<MatchResponseDTO>> findBlowouts(Pageable pageable) {
+        return ResponseEntity.ok(matchService.findBlowouts(pageable).map(MatchResponseDTO::from).getContent());
     }
 
     @DeleteMapping("/{id}")

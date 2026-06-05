@@ -18,7 +18,7 @@ public interface MatchRepository extends JpaRepository<Match, UUID>, JpaSpecific
     List<Match> findByHomeClubIdOrAwayClubId(UUID homeClubId, UUID awayClubId);
 
     @Query("SELECT m FROM Match m WHERE ABS(m.homeClubGoals - m.awayClubGoals) >= 3")
-    Page<Match> findBlowouts();
+    Page<Match> findBlowouts(Pageable pageable);
 
     @Query("SELECT m FROM Match m WHERE " +
             "(m.homeClubId.id = :clubId AND m.awayClubId.id = :adversaryId) OR " +
