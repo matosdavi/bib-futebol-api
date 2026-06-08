@@ -48,6 +48,12 @@ public class ClubController {
         return ResponseEntity.ok(ClubResponseDTO.from(clubService.findById(id)));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ClubResponseDTO> update(@PathVariable UUID id, @RequestBody @Valid ClubRequestDTO dto) {
+        Club updatedClub = clubService.updateClub(id, dto.toEntity());
+        return ResponseEntity.ok(ClubResponseDTO.from(updatedClub));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         clubService.deleteClub(id);
@@ -64,5 +70,15 @@ public class ClubController {
             @PathVariable UUID id,
             @PathVariable UUID adversaryId) {
         return ResponseEntity.ok(matchService.confrontRetrospectCalculate(id, adversaryId));
+    }
+
+    @GetMapping("/ranking/points")
+    public ResponseEntity<List<ClubResponseDTO>> rankingByPoints(Pageable pageable) {
+        return ResponseEntity.ok(clubService.rankingByPoints(pageable).map(ClubResponseDTO::from).getContent());
+    }
+
+    @GetMapping("/ranking/goals")
+    public ResponseEntity<List<ClubResponseDTO>> rankingByGoals(Pageable pageable) {
+        return ResponseEntity.ok(clubService.rankingByGoals(pageable).map(ClubResponseDTO::from).getContent());
     }
 }

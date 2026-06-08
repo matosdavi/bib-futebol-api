@@ -4,6 +4,7 @@ import com.mercadolivre.bootcamp.bib.entity.Club;
 import com.mercadolivre.bootcamp.bib.entity.Match;
 import com.mercadolivre.bootcamp.bib.entity.Stadium;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public record MatchRequestDTO(
         UUID stadiumId,
 
         @NotNull(message = "Match date and time is required.")
+        @PastOrPresent(message = "Match date and time cannot be in the future.")
         LocalDateTime matchDateTime
 ) {
 

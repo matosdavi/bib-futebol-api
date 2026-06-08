@@ -24,13 +24,8 @@ public class StadiumService {
     @Transactional
     public Stadium createStadium(Stadium stadium) {
 
-        stadiumRepository.findByNameIgnoreCaseAndCityIgnoreCaseAndState(
-                stadium.getName(),
-                stadium.getCity(),
-                stadium.getState()
-        ).ifPresent(existingStadium -> {
-            throw new ConflictException("Stadium with name '" + stadium.getName() + "' already exists in " +
-                    stadium.getCity() + ", " + stadium.getState());
+        stadiumRepository.findByNameIgnoreCase(stadium.getName()).ifPresent(existing -> {
+            throw new ConflictException("A stadium with name '" + stadium.getName() + "' already exists.");
         });
 
         stadium.setActive(true);
@@ -53,6 +48,23 @@ public class StadiumService {
         return stadiumRepository.findById(id)
                 .filter(Stadium::isActive)
                 .orElseThrow(() -> new ResourceNotFoundException("Stadium not found with ID: " + id));
+    }
+
+    @Transactional
+    public Stadium updateStadium(UUID id, Stadium updatedStadium) {
+        Stadium existingStadium = findById(id);
+
+        if (!existingStadium.getName().equalsIgnoreCase(updatedStadium.getName())) {
+            stadiumRepository.findByNameIgnoreCase(updatedStadium.getName()).ifPresent(ignored -> {
+                throw new ConflictException("Another stadium with name '" + updatedStadium.getName() + "' already exists.");
+            });
+        }
+
+        existingStadium.setName(updatedStadium.getName());
+        existingStadium.setCity(updatedStadium.getCity());
+        existingStadium.setState(updatedStadium.getState());
+
+        return stadiumRepository.save(existingStadium);
     }
 
     @Transactional

@@ -4,7 +4,10 @@ import com.mercadolivre.bootcamp.bib.entity.Club;
 import com.mercadolivre.bootcamp.bib.enums.StateEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
 
 public record ClubRequestDTO(
         @NotBlank(message = "Club name is required.")
@@ -12,12 +15,17 @@ public record ClubRequestDTO(
         String name,
 
         @NotNull(message = "State is required.")
-        StateEnum state
+        StateEnum state,
+
+        @NotNull(message = "Foundation date is required.")
+        @PastOrPresent(message = "Foundation date cannot be in the future.")
+        LocalDate foundationDate
 ) {
     public Club toEntity() {
         Club club = new Club();
         club.setName(this.name());
         club.setState(this.state());
+        club.setFoundationDate(this.foundationDate());
         return club;
     }
 }

@@ -47,6 +47,12 @@ public class MatchController {
         return ResponseEntity.ok(matchService.findBlowouts(pageable).map(MatchResponseDTO::from).getContent());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<MatchResponseDTO> update(@PathVariable UUID id, @RequestBody @Valid MatchRequestDTO dto) {
+        Match updatedMatch = matchService.updateMatch(id, dto.toEntity());
+        return ResponseEntity.ok(MatchResponseDTO.from(updatedMatch));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         matchService.deleteMatch(id);

@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @Table(name = "club",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"name"})
+                @UniqueConstraint(columnNames = {"name", "state"})
         })
 @Entity
 @Builder

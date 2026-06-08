@@ -15,7 +15,7 @@ public interface StadiumRepository extends JpaRepository<Stadium, UUID>, JpaSpec
 
     List<Stadium> findByActive(boolean active);
 
-    List<Stadium> findByNameIgnoreCase(String name);
+    Optional<Stadium> findByNameIgnoreCase(String name);
 
     List<Stadium> findByCityIgnoreCase(String city);
 

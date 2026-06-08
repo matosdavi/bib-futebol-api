@@ -45,6 +45,12 @@ public class StadiumController {
         return ResponseEntity.ok(StadiumResponseDTO.from(stadiumService.findById(id)));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<StadiumResponseDTO> update(@PathVariable UUID id, @RequestBody @Valid StadiumRequestDTO dto) {
+        Stadium updatedStadium = stadiumService.updateStadium(id, dto.toEntity());
+        return ResponseEntity.ok(StadiumResponseDTO.from(updatedStadium));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         stadiumService.deleteStadium(id);

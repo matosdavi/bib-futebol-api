@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -24,4 +26,18 @@ public interface MatchRepository extends JpaRepository<Match, UUID>, JpaSpecific
             "(m.homeClubId.id = :clubId AND m.awayClubId.id = :adversaryId) OR " +
             "(m.awayClubId.id = :clubId AND m.homeClubId.id = :adversaryId)")
     List<Match> findByBothClubs(@Param("clubId") UUID clubId, @Param("adversaryId") UUID adversaryId);
+
+    @Query("SELECT m FROM Match m WHERE " +
+            "(m.homeClubId.id = :clubId OR m.awayClubId.id = :clubId) AND " +
+            "m.matchDateTime > :start AND m.matchDateTime < :end")
+    List<Match> findClubMatchesInWindow(@Param("clubId") UUID clubId,
+                                        @Param("start") LocalDateTime start,
+                                        @Param("end") LocalDateTime end);
+
+    @Query("SELECT m FROM Match m WHERE " +
+            "m.stadiumId.id = :stadiumId AND " +
+            "m.matchDateTime >= :startOfDay AND m.matchDateTime < :endOfDay")
+    List<Match> findByStadiumAndDay(@Param("stadiumId") UUID stadiumId,
+                                    @Param("startOfDay") LocalDateTime startOfDay,
+                                    @Param("endOfDay") LocalDateTime endOfDay);
 }
