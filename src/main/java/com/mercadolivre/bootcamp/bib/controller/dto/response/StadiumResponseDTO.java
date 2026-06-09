@@ -5,8 +5,8 @@ import com.mercadolivre.bootcamp.bib.enums.StateEnum;
 
 import java.util.UUID;
 
-public record StadiumResponseDTO(UUID id, String name, String city, StateEnum state) {
+public record StadiumResponseDTO(UUID id, String name, String city, StateEnum state, boolean active) {
     public static StadiumResponseDTO from(Stadium stadium) {
-        return new StadiumResponseDTO(stadium.getId(), stadium.getName(), stadium.getCity(), stadium.getState());
+        return new StadiumResponseDTO(stadium.getId(), stadium.getName(), stadium.getCity(), stadium.getState(), stadium.isActive());
     }
 }

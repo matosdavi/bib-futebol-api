@@ -6,6 +6,7 @@ import com.mercadolivre.bootcamp.bib.entity.Match;
 import com.mercadolivre.bootcamp.bib.service.MatchService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import com.mercadolivre.bootcamp.bib.controller.dto.response.PageResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,12 @@ public class MatchController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MatchResponseDTO>> findAll(
+    public ResponseEntity<PageResponse<MatchResponseDTO>> findAll(
             @RequestParam(required = false) UUID clubId,
             @RequestParam(required = false) UUID stadiumId,
             Pageable pageable) {
 
-        return ResponseEntity.ok(matchService.findAll(clubId, stadiumId, pageable).map(MatchResponseDTO::from).getContent());
+        return ResponseEntity.ok(PageResponse.from(matchService.findAll(clubId, stadiumId, pageable).map(MatchResponseDTO::from)));
     }
 
     @GetMapping("/{id}")

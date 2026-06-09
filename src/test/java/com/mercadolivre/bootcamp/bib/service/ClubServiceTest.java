@@ -5,6 +5,7 @@ import com.mercadolivre.bootcamp.bib.enums.StateEnum;
 import com.mercadolivre.bootcamp.bib.exception.ConflictException;
 import com.mercadolivre.bootcamp.bib.exception.ResourceNotFoundException;
 import com.mercadolivre.bootcamp.bib.repository.ClubRepository;
+import com.mercadolivre.bootcamp.bib.repository.MatchRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +32,9 @@ class ClubServiceTest {
 
     @Mock
     private ClubRepository clubRepository;
+
+    @Mock
+    private MatchRepository matchRepository;
 
     @InjectMocks
     private ClubService clubService;
@@ -66,7 +70,7 @@ class ClubServiceTest {
     @Test
     void createClub_whenNameIsUnique_savesWithActiveTrue() {
         Club input = Club.builder().name("Flamengo").state(StateEnum.RJ).build();
-        when(clubRepository.findByNameIgnoreCase("Flamengo")).thenReturn(Optional.empty());
+        when(clubRepository.findByNameIgnoreCaseAndState("Flamengo", StateEnum.RJ)).thenReturn(Optional.empty());
         when(clubRepository.save(any(Club.class))).thenAnswer(inv -> inv.getArgument(0));
 
         Club result = clubService.createClub(input);
@@ -78,7 +82,7 @@ class ClubServiceTest {
     @Test
     void createClub_whenNameAlreadyExists_throwsConflictException() {
         Club input = Club.builder().name("Flamengo").state(StateEnum.RJ).build();
-        when(clubRepository.findByNameIgnoreCase("Flamengo")).thenReturn(Optional.of(activeClub));
+        when(clubRepository.findByNameIgnoreCaseAndState("Flamengo", StateEnum.RJ)).thenReturn(Optional.of(activeClub));
 
         assertThrows(ConflictException.class, () -> clubService.createClub(input));
         verify(clubRepository, never()).save(any());

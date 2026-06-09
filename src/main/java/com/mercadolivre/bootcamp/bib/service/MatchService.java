@@ -130,7 +130,7 @@ public class MatchService {
                 .filter(Club::isActive)
                 .orElseThrow(() -> new ResourceNotFoundException("Club not found with ID: " + clubId));
 
-        List<Match> matches = matchRepository.findByHomeClubIdOrAwayClubId(clubId, clubId);
+        List<Match> matches = matchRepository.findByHomeClubIdOrAwayClubId(clubId);
 
         long victories = 0;
         long losses = 0;

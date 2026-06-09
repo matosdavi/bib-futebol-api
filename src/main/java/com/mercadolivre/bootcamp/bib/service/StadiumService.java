@@ -52,7 +52,8 @@ public class StadiumService {
 
     @Transactional
     public Stadium updateStadium(UUID id, Stadium updatedStadium) {
-        Stadium existingStadium = findById(id);
+        Stadium existingStadium = stadiumRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Stadium not found with ID: " + id));
 
         if (!existingStadium.getName().equalsIgnoreCase(updatedStadium.getName())) {
             stadiumRepository.findByNameIgnoreCase(updatedStadium.getName()).ifPresent(ignored -> {
@@ -63,6 +64,7 @@ public class StadiumService {
         existingStadium.setName(updatedStadium.getName());
         existingStadium.setCity(updatedStadium.getCity());
         existingStadium.setState(updatedStadium.getState());
+        existingStadium.setActive(updatedStadium.isActive());
 
         return stadiumRepository.save(existingStadium);
     }

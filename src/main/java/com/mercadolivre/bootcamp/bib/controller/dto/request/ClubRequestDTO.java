@@ -19,13 +19,16 @@ public record ClubRequestDTO(
 
         @NotNull(message = "Foundation date is required.")
         @PastOrPresent(message = "Foundation date cannot be in the future.")
-        LocalDate foundationDate
+        LocalDate foundationDate,
+
+        Boolean active
 ) {
     public Club toEntity() {
         Club club = new Club();
         club.setName(this.name());
         club.setState(this.state());
         club.setFoundationDate(this.foundationDate());
+        if (this.active() != null) club.setActive(this.active());
         return club;
     }
 }

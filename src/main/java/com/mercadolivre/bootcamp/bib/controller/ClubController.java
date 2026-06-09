@@ -1,7 +1,9 @@
 package com.mercadolivre.bootcamp.bib.controller;
 
 import com.mercadolivre.bootcamp.bib.controller.dto.request.ClubRequestDTO;
+import com.mercadolivre.bootcamp.bib.controller.dto.response.ClubRankingResponseDTO;
 import com.mercadolivre.bootcamp.bib.controller.dto.response.ClubResponseDTO;
+import com.mercadolivre.bootcamp.bib.controller.dto.response.PageResponse;
 import com.mercadolivre.bootcamp.bib.controller.dto.response.RetrospectConfrontResponseDTO;
 import com.mercadolivre.bootcamp.bib.controller.dto.response.RetrospectResponseDTO;
 import com.mercadolivre.bootcamp.bib.entity.Club;
@@ -34,13 +36,13 @@ public class ClubController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClubResponseDTO>> findAll(
+    public ResponseEntity<PageResponse<ClubResponseDTO>> findAll(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) StateEnum state,
-            @RequestParam(defaultValue = "true") Boolean active,
+            @RequestParam(required = false) Boolean active,
             Pageable pageable) {
 
-        return ResponseEntity.ok(clubService.findAll(name, state, active, pageable).map(ClubResponseDTO::from).getContent());
+        return ResponseEntity.ok(PageResponse.from(clubService.findAll(name, state, active, pageable).map(ClubResponseDTO::from)));
     }
 
     @GetMapping("/{id}")
@@ -73,12 +75,12 @@ public class ClubController {
     }
 
     @GetMapping("/ranking/points")
-    public ResponseEntity<List<ClubResponseDTO>> rankingByPoints(Pageable pageable) {
-        return ResponseEntity.ok(clubService.rankingByPoints(pageable).map(ClubResponseDTO::from).getContent());
+    public ResponseEntity<List<ClubRankingResponseDTO>> rankingByPoints(Pageable pageable) {
+        return ResponseEntity.ok(clubService.rankingByPoints(pageable));
     }
 
     @GetMapping("/ranking/goals")
-    public ResponseEntity<List<ClubResponseDTO>> rankingByGoals(Pageable pageable) {
-        return ResponseEntity.ok(clubService.rankingByGoals(pageable).map(ClubResponseDTO::from).getContent());
+    public ResponseEntity<List<ClubRankingResponseDTO>> rankingByGoals(Pageable pageable) {
+        return ResponseEntity.ok(clubService.rankingByGoals(pageable));
     }
 }

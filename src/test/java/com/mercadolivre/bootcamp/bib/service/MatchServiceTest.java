@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -62,8 +63,8 @@ class MatchServiceTest {
         stadiumId = UUID.randomUUID();
         matchId = UUID.randomUUID();
 
-        activeHomeClub = Club.builder().id(homeClubId).name("Flamengo").state(StateEnum.RJ).active(true).build();
-        activeAwayClub = Club.builder().id(awayClubId).name("Vasco").state(StateEnum.RJ).active(true).build();
+        activeHomeClub = Club.builder().id(homeClubId).name("Flamengo").state(StateEnum.RJ).foundationDate(LocalDate.of(1895, 11, 17)).active(true).build();
+        activeAwayClub = Club.builder().id(awayClubId).name("Vasco").state(StateEnum.RJ).foundationDate(LocalDate.of(1895, 11, 17)).active(true).build();
         activeStadium = Stadium.builder().id(stadiumId).name("Maracanã").city("Rio de Janeiro").state(StateEnum.RJ).active(true).build();
 
         persistedMatch = Match.builder()
@@ -115,31 +116,31 @@ class MatchServiceTest {
     }
 
     @Test
-    void createMatch_whenHomeClubNotFound_throwsResourceNotFoundException() {
+    void createMatch_whenHomeClubNotFound_throwsConflictException() {
         Match input = buildMatchInput(homeClubId, awayClubId, stadiumId, 2, 1);
         when(clubRepository.findById(homeClubId)).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> matchService.createMatch(input));
+        assertThrows(com.mercadolivre.bootcamp.bib.exception.ConflictException.class, () -> matchService.createMatch(input));
         verify(matchRepository, never()).save(any());
     }
 
     @Test
-    void createMatch_whenHomeClubIsInactive_throwsResourceNotFoundException() {
+    void createMatch_whenHomeClubIsInactive_throwsConflictException() {
         Club inactiveClub = Club.builder().id(homeClubId).name("Flamengo").active(false).build();
         Match input = buildMatchInput(homeClubId, awayClubId, stadiumId, 2, 1);
         when(clubRepository.findById(homeClubId)).thenReturn(Optional.of(inactiveClub));
 
-        assertThrows(ResourceNotFoundException.class, () -> matchService.createMatch(input));
+        assertThrows(com.mercadolivre.bootcamp.bib.exception.ConflictException.class, () -> matchService.createMatch(input));
         verify(matchRepository, never()).save(any());
     }
 
     @Test
-    void createMatch_whenAwayClubNotFound_throwsResourceNotFoundException() {
+    void createMatch_whenAwayClubNotFound_throwsConflictException() {
         Match input = buildMatchInput(homeClubId, awayClubId, stadiumId, 2, 1);
         when(clubRepository.findById(homeClubId)).thenReturn(Optional.of(activeHomeClub));
         when(clubRepository.findById(awayClubId)).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> matchService.createMatch(input));
+        assertThrows(com.mercadolivre.bootcamp.bib.exception.ConflictException.class, () -> matchService.createMatch(input));
         verify(matchRepository, never()).save(any());
     }
 
@@ -282,7 +283,7 @@ class MatchServiceTest {
                 .homeClubGoals(0).awayClubGoals(2).build();
 
         when(clubRepository.findById(homeClubId)).thenReturn(Optional.of(activeHomeClub));
-        when(matchRepository.findByHomeClubIdOrAwayClubId(homeClubId, homeClubId))
+        when(matchRepository.findByHomeClubIdOrAwayClubId(homeClubId))
                 .thenReturn(List.of(m1, m2, m3, m4));
 
         RetrospectResponseDTO result = matchService.generalRetrospectCalculate(homeClubId);
@@ -302,7 +303,7 @@ class MatchServiceTest {
     @Test
     void generalRetrospectCalculate_whenNoMatchesPlayed_returnsAllZeros() {
         when(clubRepository.findById(homeClubId)).thenReturn(Optional.of(activeHomeClub));
-        when(matchRepository.findByHomeClubIdOrAwayClubId(homeClubId, homeClubId))
+        when(matchRepository.findByHomeClubIdOrAwayClubId(homeClubId))
                 .thenReturn(List.of());
 
         RetrospectResponseDTO result = matchService.generalRetrospectCalculate(homeClubId);
@@ -348,15 +349,15 @@ class MatchServiceTest {
     void confrontRetrospectCalculate_whenMatchesExist_returnsCorrectStats() {
         // m1: club is home, wins 2-0 → victory, scored 2, conceded 0
         Match m1 = Match.builder()
-                .homeClubId(activeHomeClub).awayClubId(activeAwayClub)
+                .homeClubId(activeHomeClub).awayClubId(activeAwayClub).stadiumId(activeStadium)
                 .homeClubGoals(2).awayClubGoals(0).build();
         // m2: club is away, wins 3-1 → victory, scored 3, conceded 1
         Match m2 = Match.builder()
-                .homeClubId(activeAwayClub).awayClubId(activeHomeClub)
+                .homeClubId(activeAwayClub).awayClubId(activeHomeClub).stadiumId(activeStadium)
                 .homeClubGoals(1).awayClubGoals(3).build();
         // m3: club is home, draws 1-1 → draw, scored 1, conceded 1
         Match m3 = Match.builder()
-                .homeClubId(activeHomeClub).awayClubId(activeAwayClub)
+                .homeClubId(activeHomeClub).awayClubId(activeAwayClub).stadiumId(activeStadium)
                 .homeClubGoals(1).awayClubGoals(1).build();
 
         when(clubRepository.findById(homeClubId)).thenReturn(Optional.of(activeHomeClub));

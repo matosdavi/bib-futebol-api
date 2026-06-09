@@ -191,14 +191,15 @@ class MatchControllerTest {
     // -------------------------------------------------------------------------
 
     @Test
-    void findAll_returns200WithList() throws Exception {
+    void findAll_returns200WithPage() throws Exception {
         when(matchService.findAll(any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of(savedMatch)));
 
         mockMvc.perform(get("/api/matches"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].homeClub.name").value("Flamengo"));
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content[0].homeClub.name").value("Flamengo"))
+                .andExpect(jsonPath("$.totalElements").value(1));
     }
 
     // -------------------------------------------------------------------------

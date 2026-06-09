@@ -17,7 +17,8 @@ import java.util.UUID;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, UUID>, JpaSpecificationExecutor<Match> {
 
-    List<Match> findByHomeClubIdOrAwayClubId(UUID homeClubId, UUID awayClubId);
+    @Query("SELECT m FROM Match m WHERE m.homeClubId.id = :clubId OR m.awayClubId.id = :clubId")
+    List<Match> findByHomeClubIdOrAwayClubId(@Param("clubId") UUID clubId);
 
     @Query("SELECT m FROM Match m WHERE ABS(m.homeClubGoals - m.awayClubGoals) >= 3")
     Page<Match> findBlowouts(Pageable pageable);

@@ -7,6 +7,7 @@ import com.mercadolivre.bootcamp.bib.enums.StateEnum;
 import com.mercadolivre.bootcamp.bib.service.StadiumService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import com.mercadolivre.bootcamp.bib.controller.dto.response.PageResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class StadiumController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StadiumResponseDTO>> findAll(
+    public ResponseEntity<PageResponse<StadiumResponseDTO>> findAll(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) StateEnum state,
-            @RequestParam(defaultValue = "true") Boolean active,
+            @RequestParam(required = false) Boolean active,
             Pageable pageable) {
 
-        return ResponseEntity.ok(stadiumService.findAll(name, city, state, active, pageable).map(StadiumResponseDTO::from).getContent());
+        return ResponseEntity.ok(PageResponse.from(stadiumService.findAll(name, city, state, active, pageable).map(StadiumResponseDTO::from)));
     }
 
     @GetMapping("/{id}")

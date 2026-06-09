@@ -16,13 +16,16 @@ public record StadiumRequestDTO(
         String city,
 
         @NotNull(message = "State is required.")
-        StateEnum state) {
+        StateEnum state,
+
+        Boolean active) {
 
     public Stadium toEntity() {
         Stadium stadium = new Stadium();
         stadium.setName(this.name());
         stadium.setCity(this.city());
         stadium.setState(this.state());
+        if (this.active() != null) stadium.setActive(this.active());
         return stadium;
     }
 }

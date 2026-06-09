@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.mercadolivre.bootcamp</groupId>
 	<artifactId>bib</artifactId>
-	<version>1.0.8</version>
-	<name>BiB</name>
+	<version>1.1.0</version>
+	<name>BIB</name>
 	<description>Basket is Better - A football match API for Neocamp Brasil</description>
 	<url/>
 	<licenses>

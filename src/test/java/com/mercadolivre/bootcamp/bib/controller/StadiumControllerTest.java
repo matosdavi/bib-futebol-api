@@ -137,14 +137,15 @@ class StadiumControllerTest {
     // -------------------------------------------------------------------------
 
     @Test
-    void findAll_returns200WithList() throws Exception {
+    void findAll_returns200WithPage() throws Exception {
         when(stadiumService.findAll(any(), any(), any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of(activeStadium)));
 
         mockMvc.perform(get("/api/stadiums"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value("Maracanã"));
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content[0].name").value("Maracanã"))
+                .andExpect(jsonPath("$.totalElements").value(1));
     }
 
     // -------------------------------------------------------------------------

@@ -66,8 +66,7 @@ class StadiumServiceTest {
     void createStadium_whenNameCityStateIsUnique_savesWithActiveTrue() {
         Stadium input = Stadium.builder()
                 .name("Maracanã").city("Rio de Janeiro").state(StateEnum.RJ).build();
-        when(stadiumRepository.findByNameIgnoreCaseAndCityIgnoreCaseAndState("Maracanã", "Rio de Janeiro", StateEnum.RJ))
-                .thenReturn(Optional.empty());
+        when(stadiumRepository.findByNameIgnoreCase("Maracanã")).thenReturn(Optional.empty());
         when(stadiumRepository.save(any(Stadium.class))).thenAnswer(inv -> inv.getArgument(0));
 
         Stadium result = stadiumService.createStadium(input);
@@ -80,8 +79,7 @@ class StadiumServiceTest {
     void createStadium_whenAlreadyExists_throwsConflictException() {
         Stadium input = Stadium.builder()
                 .name("Maracanã").city("Rio de Janeiro").state(StateEnum.RJ).build();
-        when(stadiumRepository.findByNameIgnoreCaseAndCityIgnoreCaseAndState("Maracanã", "Rio de Janeiro", StateEnum.RJ))
-                .thenReturn(Optional.of(activeStadium));
+        when(stadiumRepository.findByNameIgnoreCase("Maracanã")).thenReturn(Optional.of(activeStadium));
 
         assertThrows(ConflictException.class, () -> stadiumService.createStadium(input));
         verify(stadiumRepository, never()).save(any());

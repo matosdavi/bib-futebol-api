@@ -81,7 +81,7 @@ class ClubControllerTest {
         mockMvc.perform(post("/api/clubs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name": "Flamengo", "state": "RJ"}
+                                {"name": "Flamengo", "state": "RJ", "foundationDate": "1895-11-17"}
                                 """))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(clubId.toString()))
@@ -94,7 +94,7 @@ class ClubControllerTest {
         mockMvc.perform(post("/api/clubs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name": "", "state": "RJ"}
+                                {"name": "", "state": "RJ", "foundationDate": "1895-11-17"}
                                 """))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
@@ -107,7 +107,7 @@ class ClubControllerTest {
         mockMvc.perform(post("/api/clubs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name": "Flamengo"}
+                                {"name": "Flamengo", "foundationDate": "1895-11-17"}
                                 """))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value("Validation Failed"))
@@ -133,7 +133,7 @@ class ClubControllerTest {
         mockMvc.perform(post("/api/clubs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"name": "Flamengo", "state": "RJ"}
+                                {"name": "Flamengo", "state": "RJ", "foundationDate": "1895-11-17"}
                                 """))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.status").value(409))
@@ -146,14 +146,15 @@ class ClubControllerTest {
     // -------------------------------------------------------------------------
 
     @Test
-    void findAll_returns200WithList() throws Exception {
+    void findAll_returns200WithPage() throws Exception {
         when(clubService.findAll(any(), any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of(activeClub)));
 
         mockMvc.perform(get("/api/clubs"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name").value("Flamengo"));
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content[0].name").value("Flamengo"))
+                .andExpect(jsonPath("$.totalElements").value(1));
     }
 
     // -------------------------------------------------------------------------
@@ -239,7 +240,7 @@ class ClubControllerTest {
     @Test
     void confrontRetrospect_whenBothClubsExist_returns200WithStats() throws Exception {
         RetrospectConfrontResponseDTO dto = new RetrospectConfrontResponseDTO(
-                clubId, "Flamengo", adversaryId, "Vasco", 3, 1, 1, 9, 4, 5, 5);
+                clubId, "Flamengo", adversaryId, "Vasco", 3L, 1L, 1L, 9L, 4L, 5L, 5L, List.of());
         when(matchService.confrontRetrospectCalculate(clubId, adversaryId)).thenReturn(dto);
 
         mockMvc.perform(get("/api/clubs/{id}/retrospect/{adversaryId}", clubId, adversaryId))
