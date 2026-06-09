@@ -1,0 +1,115 @@
+src/test/java/com/mercadolivre/bootcamp/bib/service/StadiumServiceTest.java
+  s_37b97b26587bdd::t_603a187c8d8318 69,82
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/request/StadiumRequestDTO.java
+  s_002ddba52fcbb2::t_8f1a6974a389b6 19-21,28
+src/main/resources/static/index.html
+  h_83e4234dee3f6e 6
+src/test/java/com/mercadolivre/bootcamp/bib/controller/ClubControllerTest.java
+  s_37b97b26587bdd::t_c60f821b54a208 243
+  s_002ddba52fcbb2::t_b57729b2f06da9 149,155-157
+  s_37b97b26587bdd::t_ef82ef78991775 84,97,110,136
+src/test/java/com/mercadolivre/bootcamp/bib/controller/MatchControllerTest.java
+  s_002ddba52fcbb2::t_f34ffb118dc1be 194,200-202
+src/test/java/com/mercadolivre/bootcamp/bib/controller/StadiumControllerTest.java
+  s_002ddba52fcbb2::t_efaaea68debfb6 140,146-148
+src/main/java/com/mercadolivre/bootcamp/bib/controller/StadiumController.java
+  s_002ddba52fcbb2::t_3fe49dccdcd6cd 34,41
+  s_002ddba52fcbb2::t_cb593b60d54768 10
+  s_002ddba52fcbb2::t_47084ce8a214b7 38
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/response/PageResponse.java
+  s_002ddba52fcbb2::t_0d6d62356bf283 1-21
+README.md
+  s_002ddba52fcbb2::t_f34cfa5db1e8e9 3,18,21,32,48,58,60,84,95-130,177-178,189,198-223,248,257-266,280-287,293,300-312,315-331,355-368,393,438-439,492-499
+  s_002ddba52fcbb2::t_d1e3132857d587 186
+  s_002ddba52fcbb2::t_b0ddd89d18a154 238-247
+  h_83e4234dee3f6e 1
+  s_002ddba52fcbb2::t_135cafa1559c0c 377-380,384-386
+src/main/resources/static/pages/retrospect.jsx
+  s_002ddba52fcbb2::t_53af8546f2afd0 19-20,30-66
+  h_83e4234dee3f6e 25-26,28
+src/main/resources/static/app.jsx
+  h_83e4234dee3f6e 16-26,36-37,39-45,47,57,59,65,69,86,93-94
+  s_002ddba52fcbb2::t_1e7392dd80a69e 46
+pom.xml
+  h_83e4234dee3f6e 13-14
+src/main/resources/static/pages/matches.jsx
+  s_002ddba52fcbb2::t_c2faafb6be5b7e 154
+  s_002ddba52fcbb2::t_c35daecdc5e029 263-265
+  s_002ddba52fcbb2::t_3d3aa1f6479a7f 9-11
+  s_002ddba52fcbb2::t_f9ded33d77b23b 38-41
+  s_002ddba52fcbb2::t_e20ad8fdae04a6 42-43
+  s_002ddba52fcbb2::t_7c8db38fa6ddeb 146
+  s_002ddba52fcbb2::t_d689e64f3236f1 257
+src/main/java/com/mercadolivre/bootcamp/bib/service/MatchService.java
+  s_002ddba52fcbb2::t_3c452dd2008877 133
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/request/ClubRequestDTO.java
+  s_002ddba52fcbb2::t_fee002181726e0 22-24,31
+src/test/java/com/mercadolivre/bootcamp/bib/service/ClubServiceTest.java
+  s_37b97b26587bdd::t_8c242b2d3f0c30 73,85
+  s_002ddba52fcbb2::t_34113820afc990 36-38
+  s_002ddba52fcbb2::t_a9e505951393af 8
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/response/ClubRankingResponseDTO.java
+  s_002ddba52fcbb2::t_c515e42bffe095 1-16
+src/main/java/com/mercadolivre/bootcamp/bib/controller/MatchController.java
+  s_002ddba52fcbb2::t_ef566d3a9dbd86 33,38
+  s_002ddba52fcbb2::t_619b3764986e89 9
+src/main/resources/static/pages/clubs.jsx
+  s_002ddba52fcbb2::t_d3f45c2e95b296 209
+src/main/resources/static/pages/stadiums.jsx
+  s_002ddba52fcbb2::t_f6f105f7da2444 208
+src/main/java/com/mercadolivre/bootcamp/bib/repository/MatchRepository.java
+  s_002ddba52fcbb2::t_db82ccc08fb340 20-21
+src/main/java/com/mercadolivre/bootcamp/bib/controller/ClubController.java
+  s_002ddba52fcbb2::t_c7bc5d0908036c 4
+  s_002ddba52fcbb2::t_43fa0d3cefd751 42
+  s_002ddba52fcbb2::t_68483568ac89e6 78-79,83-84
+  s_002ddba52fcbb2::t_bbcbc8f3fc9338 6
+  s_002ddba52fcbb2::t_e56937c4d21dda 39,45
+src/test/java/com/mercadolivre/bootcamp/bib/service/MatchServiceTest.java
+  s_37b97b26587bdd::t_17ab8f830c6521 25,66-67,119,123,128,133,138,143,352,356,360
+  s_002ddba52fcbb2::t_6f97790e15ceee 286,306
+src/main/resources/static/ui.jsx
+  h_83e4234dee3f6e 238
+src/main/java/com/mercadolivre/bootcamp/bib/service/ClubService.java
+  s_002ddba52fcbb2::t_1dcc60a1eb0626 28
+  s_002ddba52fcbb2::t_90b8a2f74fd165 92-95,99-105,107-126
+  s_002ddba52fcbb2::t_327e5468594c2f 64-65,79
+  s_002ddba52fcbb2::t_9b699a3d62a54f 3,5,11,20
+  s_002ddba52fcbb2::t_b998501f2b3c67 106
+src/main/java/com/mercadolivre/bootcamp/bib/service/StadiumService.java
+  s_002ddba52fcbb2::t_c3d803eb8a9c80 55-56,67
+src/main/java/com/mercadolivre/bootcamp/bib/controller/dto/response/StadiumResponseDTO.java
+  s_002ddba52fcbb2::t_84fc688df6f073 8,10
+src/main/resources/static/pages/dashboard.jsx
+  s_002ddba52fcbb2::t_7bcf60f5478ae7 75-77
+  s_002ddba52fcbb2::t_b50f7531248ff0 69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "c6f53be367c9b813eb041b032b07932786bc9ec8",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  },
+  "sessions": {
+    "s_002ddba52fcbb2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04d3437d-ef16-4aea-97d7-2d2614240c0b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    },
+    "s_37b97b26587bdd": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ef4397e-ac89-4399-b0a2-3b420b4a1996",
+        "model": "unknown"
+      },
+      "human_author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
