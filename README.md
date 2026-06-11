@@ -22,7 +22,6 @@
 - [Regras de negócio](#regras-de-negócio)
 - [Respostas de erro](#respostas-de-erro)
 - [Como executar](#como-executar)
-- [Configuração do MySQL](#configuração-do-mysql)
 - [Testes](#testes)
 
 ---
@@ -426,6 +425,7 @@ Todos os erros seguem o mesmo contrato:
 
 - Java 26
 - Maven (ou use o wrapper `./mvnw`)
+- Docker (para rodar com MySQL)
 
 ### Desenvolvimento (H2 in-memory)
 
@@ -446,33 +446,31 @@ Console do H2 disponível em `http://localhost:8080/h2-console`:
 | User | `sa` |
 | Password | `password` |
 
----
+### Produção (MySQL via Docker)
 
-## Configuração do MySQL
+Suba o banco com Docker e inicie a aplicação:
 
-Para usar MySQL em produção, crie o banco e configure o `application.yaml` (ou use variáveis de ambiente):
-
-```sql
-CREATE DATABASE bib CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'bib_user'@'%' IDENTIFIED BY 'sua_senha';
-GRANT ALL PRIVILEGES ON bib.* TO 'bib_user'@'%';
-FLUSH PRIVILEGES;
+```bash
+docker compose up -d
+./mvnw spring-boot:run
 ```
 
-```yaml
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/bib?useSSL=false&serverTimezone=UTC
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: bib_user
-    password: sua_senha
-  jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    hibernate:
-      ddl-auto: update
+Na primeira inicialização, o Hibernate cria o schema e o Spring executa automaticamente o `data.sql`, populando o banco com clubes, estádios e partidas de exemplo. Nas reinicializações seguintes os dados já existentes são preservados.
+
+Para resetar o banco e reinserir os dados do zero:
+
+```bash
+docker compose down -v
+docker compose up -d
+./mvnw spring-boot:run
 ```
 
-> O schema é gerado automaticamente pelo Hibernate (`ddl-auto: update`). Nenhum script SQL manual é necessário.
+| Configuração | Valor |
+|---|---|
+| Host | `localhost:3306` |
+| Database | `bib_database` |
+| User | `root` |
+| Password | `rootpassword` |
 
 ---
 

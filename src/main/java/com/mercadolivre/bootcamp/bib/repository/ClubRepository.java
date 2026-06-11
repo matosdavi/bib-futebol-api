@@ -29,7 +29,7 @@ public interface ClubRepository extends JpaRepository<Club, UUID>, JpaSpecificat
                         WHEN m.away_club_id = c.id AND m.away_club_goals = m.home_club_goals THEN 1
                         ELSE 0
                     END
-                ), 0) FROM match m
+                ), 0) FROM `match` m
                 WHERE m.home_club_id = c.id OR m.away_club_id = c.id
             ) DESC
             """,
@@ -47,7 +47,7 @@ public interface ClubRepository extends JpaRepository<Club, UUID>, JpaSpecificat
                         WHEN m.away_club_id = c.id THEN m.away_club_goals
                         ELSE 0
                     END
-                ), 0) FROM match m
+                ), 0) FROM `match` m
                 WHERE m.home_club_id = c.id OR m.away_club_id = c.id
             ) DESC
             """,
