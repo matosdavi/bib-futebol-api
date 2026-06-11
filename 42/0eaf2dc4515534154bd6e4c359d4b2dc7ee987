@@ -1,0 +1,14 @@
+pom.xml
+  h_83e4234dee3f6e 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "420eaf2dc4515534154bd6e4c359d4b2dc7ee987",
+  "prompts": {},
+  "humans": {
+    "h_83e4234dee3f6e": {
+      "author": "davmarques_meli <davi.marques@mercadolivre.com>"
+    }
+  }
+}
